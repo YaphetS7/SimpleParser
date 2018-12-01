@@ -21,13 +21,7 @@ namespace Parser
     {
         
         List<char> list = new List<char>();
-        public Parser(string s)
-        {
-            for (int i = 0; i < s.Length; i++)
-            {
-                list.Add(s[i]);
-            }
-        }
+        
         private void InsertL(int i)
         {
             bool check = false;
@@ -92,8 +86,12 @@ namespace Parser
             if (!check)
                 list.Add(')');
         }
-        public List<ANode> Parse()
+        public List<ANode> Parse(string s)
         {
+            for (int i = 0; i < s.Length; i++)
+            {
+                list.Add(s[i]);
+            }
             ParseDel();
             List<ANode> result = new List<ANode>();
             foreach (char a in list)
@@ -175,8 +173,8 @@ namespace Parser
         static void Main(string[] args)
         {
             string s = Console.ReadLine();
-            Parser parser = new Parser(s);
-            List<ANode> list = parser.Parse();
+            Parser parser = new Parser();
+            List<ANode> list = parser.Parse(s);
             foreach(ANode node in list)
             {
                 Console.Write("[ " + node.token_type + ", " + node.token_value + " ], ");
